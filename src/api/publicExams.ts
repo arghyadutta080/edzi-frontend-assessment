@@ -10,3 +10,23 @@ export const fetchPublicExams = async () => {
 
     return response.json();
 };
+
+export const fetchPublicExam = async (exam: string) => {
+    const url = `${baseURL}/public-exam`;
+    const payload = {
+        exam: {
+            slug: exam,
+        }
+    }
+    const response = await fetch(url, {
+        method: "POST", body: JSON.stringify(payload), headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch public exam subjects");
+    }
+
+    return response.json();
+}

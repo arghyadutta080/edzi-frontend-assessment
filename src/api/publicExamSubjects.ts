@@ -9,7 +9,7 @@ export const fetchPublicExamSubjects = async (exam: string) => {
     }
     const response = await fetch(url, {
         method: "POST", body: JSON.stringify(payload), headers: {
-            "Content-Type": "application/json", // Specify content type as JSON
+            "Content-Type": "application/json",
         },
     });
 
