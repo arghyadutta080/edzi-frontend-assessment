@@ -1,10 +1,10 @@
 "use client";
 
+import React from "react";
 import { fetchPublicExams } from "@/api/publicExams";
 import { PublicExam } from "@/lib/types/publicExam";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React from "react";
 import ExamsLoadingUI from "./ExamsLoadingUI";
 import Link from "next/link";
 
@@ -23,7 +23,11 @@ const PublicExams = () => {
   }
 
   if (isError) {
-    return <div>Error: {error?.message}</div>;
+    return (
+      <div className="text-red-500">
+        {error?.message || "Error fetching health status"}
+      </div>
+    );
   }
 
   const modifyExamTitle = (title: string) => {

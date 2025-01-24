@@ -1,23 +1,36 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPublicExam } from "@/api/publicExams";
-import React from "react";
 import { PublicExam } from "@/lib/types/publicExam";
 import { ClassInfoLoading } from "./Loading";
+import { notFound } from "next/navigation";
 
 type ClassInfoProps = {
   exam: string;
 };
 
 const ClassInfo: React.FC<ClassInfoProps> = ({ exam }) => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["public-exams", exam],
+  const { data, isLoading, isError, error, isFetching } = useQuery({
+    queryKey: ["public-exam", exam],
     queryFn: () => fetchPublicExam(exam),
     staleTime: Infinity,
   });
+
+  if (isFetching) {
+    notFound();
+  }
+
+  if (isError) {
+    return (
+      <div className="text-red-500">
+        {error?.message || "Error fetching health status"}
+      </div>
+    );
+  }
 
   const examData: PublicExam = data?.data?.exam;
   return (
@@ -40,14 +53,14 @@ const ClassInfo: React.FC<ClassInfoProps> = ({ exam }) => {
           <div className="flex-1 space-y-4">
             <h1 className="text-4xl font-bold">{examData?.title}</h1>
             <p className="text-gray-400 leading-relaxed">
-              Edzy Class X NCERT offer a perfect blend of knowledge and
-              creativity, covering essential subjects like English, Mathematics,
-              Science, Social Science, Hindi, and Urdu. books are designed to
-              ignite curiosity with engaging stories, experiments, and
-              thought-provoking lessons, while building strong foundations in
-              critical thinking and problem-solving. From exploring the beauty
-              of literature to unraveling scientific mysteries and understanding
-              the workin...
+              Edzy Class {exam == "class-x" ? "Class X" : "Class XII"} NCERT
+              offer a perfect blend of knowledge and creativity, covering
+              essential subjects like English, Mathematics, Science, Social
+              Science, Hindi, and Urdu. books are designed to ignite curiosity
+              with engaging stories, experiments, and thought-provoking lessons,
+              while building strong foundations in critical thinking and
+              problem-solving. From exploring the beauty of literature to
+              unraveling scientific mysteries and understanding the workin...
             </p>
           </div>
         </div>
