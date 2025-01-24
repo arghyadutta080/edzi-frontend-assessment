@@ -38,8 +38,8 @@ const ClassInfo: React.FC<ClassInfoProps> = ({ exam }) => {
       {isLoading ? (
         <ClassInfoLoading />
       ) : (
-        <div className="flex items-start gap-6">
-          <Card className="w-[200px] h-[200px] bg-zinc-900 border-0">
+        <div className="flex flex-col md:flex-row md:items-start gap-6">
+          <Card className="h-auto md:w-[200px] md:h-[200px] bg-zinc-900 border-0">
             <CardContent className="p-0">
               <Image
                 src={examData?.icon}

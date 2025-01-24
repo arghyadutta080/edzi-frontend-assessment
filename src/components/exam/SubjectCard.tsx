@@ -9,6 +9,13 @@ interface SubjectCardProps {
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = ({ title, image }) => {
+  const truncateTitle = (title: string, length: number) => {
+    if (title.length > length) {
+      return title.slice(0, length) + "...";
+    }
+
+    return title;
+  };
   return (
     <Link href="/" className="block group">
       <Card
@@ -27,9 +34,9 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ title, image }) => {
               />
             </div>
           </div>
-          <div className="p-6">
-            <h3 className="text-lg font-medium text-white text-center">
-              {title}
+          <div className="py-6 px-2">
+            <h3 className=" text-xs md:text-base font-semibold text-white text-center">
+              {truncateTitle(title, 21)}
             </h3>
           </div>
         </CardContent>

@@ -18,7 +18,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ exam }) => {
   };
 
   return (
-    <nav className="flex items-center gap-2 text-sm text-gray-400">
+    <nav className="flex items-center gap-2 text-base text-gray-400 font-semibold">
       <Link href="/" className="hover:text-white transition-colors">
         Learn
       </Link>
